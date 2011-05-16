@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<tabs:BaseTab xmlns:mx="http://www.adobe.com/2006/mxml"
+              xmlns:tabs="net.srirangan.dataanalyzer.views.tabs.*"
+              label="4. Generate table"
+              enabled="false">
+</tabs:BaseTab>

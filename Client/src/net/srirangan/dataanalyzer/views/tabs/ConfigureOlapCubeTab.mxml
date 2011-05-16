@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<tabs:BaseTab xmlns:fx="http://ns.adobe.com/mxml/2009"
+              xmlns:s="library://ns.adobe.com/flex/spark"
+              xmlns:tabs="net.srirangan.dataanalyzer.views.tabs.*"
+              xmlns:mx="library://ns.adobe.com/flex/mx"
+              label="3. Configure OLAP cube"
+              enabled="{attributes.length > 0 &amp;&amp; flatData.length > 0}">
+
+  <fx:Script><![CDATA[
+
+    private function onExecute():void {
+    }
+
+    ]]></fx:Script>
+
+  <fx:Declarations>
+    <s:ArrayCollection id="flatData"/>
+    <s:ArrayCollection id="attributes"/>
+    <s:ArrayCollection id="rowDimensions"/>
+    <s:ArrayCollection id="columnDimensions"/>
+    <mx:OLAPCube id="olapCube" dataProvider="{flatData}"/>
+  </fx:Declarations>
+
+  <s:HGroup width="100%" height="100%">
+
+    <s:VGroup width="34%" height="100%">
+      <s:Label text="Attributes available"/>
+      <s:List width="100%" height="100%"
+              dataProvider="{attributes}"
+              labelField="name"
+              dragEnabled="true"/>
+    </s:VGroup>
+
+    <s:VGroup width="66%" height="100%">
+      <s:HGroup width="100%" height="100%">
+        <s:VGroup width="50%" height="100%">
+          <s:Label text="Row dimensions"/>
+          <s:List width="100%" height="100%"
+                  dataProvider="{rowDimensions}" labelField="name"
+                  dragEnabled="true" dropEnabled="true" dragMoveEnabled="true"/>
+        </s:VGroup>
+        <s:VGroup width="50%" height="100%">
+          <s:Label text="Column dimensions"/>
+          <s:List width="100%" height="100%"
+                  dataProvider="{columnDimensions}" labelField="name"
+                  dragEnabled="true" dropEnabled="true" dragMoveEnabled="true"/>
+        </s:VGroup>
+      </s:HGroup>
+      <s:HGroup width="100%" verticalAlign="middle">
+        <s:Label text="Measure"/>
+        <s:DropDownList id="measureAttributeDropDownList"
+                        width="100%"
+                        dataProvider="{attributes}" labelField="name"
+                        selectedIndex="1"/>
+        <s:DropDownList id="measureAggregationDropDownList"
+                        width="100%"
+                        selectedIndex="1">
+          <s:dataProvider>
+            <s:ArrayCollection>
+              <fx:Object label="sum"/>
+              <fx:Object label="count"/>
+              <fx:Object label="avg"/>
+              <fx:Object label="max"/>
+              <fx:Object label="min"/>
+            </s:ArrayCollection>
+          </s:dataProvider>
+        </s:DropDownList>
+        <s:Spacer width="100%"/>
+        <s:Button label="Go"/>
+      </s:HGroup>
+    </s:VGroup>
+
+  </s:HGroup>
+
+</tabs:BaseTab>

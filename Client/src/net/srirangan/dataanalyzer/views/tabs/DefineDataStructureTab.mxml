@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<tabs:BaseTab xmlns:fx="http://ns.adobe.com/mxml/2009"
+              xmlns:s="library://ns.adobe.com/flex/spark"
+              xmlns:tabs="net.srirangan.dataanalyzer.views.tabs.*"
+              xmlns:models="net.srirangan.dataanalyzer.valueobjects.*"
+              xmlns:controls="net.srirangan.dataanalyzer.views.controls.*"
+              label="1. Define data structure">
+
+  <fx:Script><![CDATA[
+    import net.srirangan.dataanalyzer.valueobjects.Attribute;
+    ]]></fx:Script>
+
+  <fx:Declarations>
+    <s:ArrayCollection id="records"/>
+  </fx:Declarations>
+
+  <controls:EditableDataGrid id="editableDataGrid"
+                             dataObjectFactory="{new ClassFactory(Attribute)}"
+                             records="{records}">
+    <controls:columns>
+      <s:ArrayCollection>
+        <s:GridColumn headerText="Attribute" dataField="name"/>
+        <s:GridColumn headerText="Description" dataField="description"/>
+      </s:ArrayCollection>
+    </controls:columns>
+  </controls:EditableDataGrid>
+
+</tabs:BaseTab>

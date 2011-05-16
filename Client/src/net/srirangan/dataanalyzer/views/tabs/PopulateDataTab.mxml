@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<tabs:BaseTab xmlns:fx="http://ns.adobe.com/mxml/2009"
+              xmlns:s="library://ns.adobe.com/flex/spark"
+              xmlns:tabs="net.srirangan.dataanalyzer.views.tabs.*"
+              xmlns:controls="net.srirangan.dataanalyzer.views.controls.*"
+              label="2. Populate data"
+              enabled="{attributes.length > 0}">
+
+  <fx:Declarations>
+    <s:ArrayCollection id="attributes"/>
+    <s:ArrayCollection id="records"/>
+  </fx:Declarations>
+
+  <controls:EditableDataGrid id="editableDataGrid" columns="{attributes}" records="{records}">
+  </controls:EditableDataGrid>
+
+</tabs:BaseTab>

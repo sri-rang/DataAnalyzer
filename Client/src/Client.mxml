@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+               xmlns:s="library://ns.adobe.com/flex/spark"
+               xmlns:mx="library://ns.adobe.com/flex/mx"
+               xmlns:tabs="net.srirangan.dataanalyzer.views.tabs.*"
+               xmlns:swiz="http://swiz.swizframework.org"
+               xmlns:config="net.srirangan.dataanalyzer.config.*"
+               creationComplete="{dispatcher.dispatchEvent(new ClientEvent(ClientEvent.CLIENT_LOAD))}">
+
+  <fx:Script><![CDATA[
+    import net.srirangan.dataanalyzer.events.ClientEvent;
+    import net.srirangan.dataanalyzer.models.PresentationModel;
+
+    [Inject]
+    [Bindable]
+    public var presentationModel:PresentationModel;
+
+    [Dispatcher]
+    public var dispatcher:IEventDispatcher;
+    ]]></fx:Script>
+
+  <fx:Declarations>
+    <swiz:Swiz>
+      <swiz:beanProviders>
+        <config:Beans/>
+      </swiz:beanProviders>
+      <swiz:config>
+        <swiz:SwizConfig viewPackages="net.srirangan.dataanalyzer.views.*"
+                         eventPackages="net.srirangan.dataanalyzer.events.*"/>
+      </swiz:config>
+    </swiz:Swiz>
+  </fx:Declarations>
+
+  <s:layout>
+    <s:VerticalLayout paddingBottom="12" paddingLeft="12" paddingRight="12" paddingTop="12"/>
+  </s:layout>
+
+  <mx:TabNavigator width="100%" height="100%" tabWidth="150">
+    <tabs:DefineDataStructureTab id="defineDataStructureTab" records="{presentationModel.attributes}"/>
+    <tabs:PopulateDataTab id="populateDataTab" attributes="{presentationModel.attributes}"
+                          records="{presentationModel.records}"/>
+    <tabs:ConfigureOlapCubeTab id="configureOlapCubeTab" attributes="{presentationModel.attributes}"
+                               flatData="{presentationModel.records}"/>
+    <tabs:GenerateTableTab id="generateTableTab"/>
+    <tabs:GenerateChartTab id="generateChartTab"/>
+  </mx:TabNavigator>
+
+</s:Application>

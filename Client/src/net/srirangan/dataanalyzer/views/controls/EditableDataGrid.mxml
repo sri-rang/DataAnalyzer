@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<s:VGroup width="100%" height="100%"
+          xmlns:fx="http://ns.adobe.com/mxml/2009"
+          xmlns:s="library://ns.adobe.com/flex/spark"
+          xmlns:core="mx.core.*">
+
+  <fx:Script><![CDATA[
+    import net.srirangan.dataanalyzer.constants.KeyCodes;
+
+    private function onAddClick():void {
+      if (dataGrid.selectedCell == null) {
+        records.addItem(dataObjectFactory.newInstance());
+      }
+      else {
+        records.addItemAt(dataObjectFactory.newInstance(), dataGrid.selectedCell.rowIndex + 1);
+      }
+      smartCellSelect();
+    }
+
+    private function smartCellSelect():void {
+      if (dataGrid.selectedCell == null || dataGrid.selectedCell.rowIndex + 1 == records.length) {
+        dataGrid.setSelectedCell(records.length - 1, 0);
+      }
+      else {
+        dataGrid.setSelectedCell(dataGrid.selectedCell.rowIndex + 1, 0);
+      }
+      dataGrid.setFocus();
+    }
+
+    private function onRemoveClick():void {
+      if (records.length > 0) {
+        records.removeItemAt(dataGrid.selectedCell.rowIndex);
+        if (records.length > 0) {
+          smartCellSelect();
+        }
+      }
+    }
+
+    private function onKeyDown(event:KeyboardEvent):void {
+      if (event.keyCode == KeyCodes.KEYCODE_ENTER) {
+        onAddClick();
+      }
+      else if (event.ctrlKey && event.keyCode == KeyCodes.KEYCODE_BACKSPACE) {
+        onRemoveClick();
+      }
+    }
+    ]]></fx:Script>
+
+  <fx:Declarations>
+    <s:ArrayCollection id="records"/>
+    <s:ArrayCollection id="columns"/>
+    <core:ClassFactory id="dataObjectFactory"
+                       generator="{Object}"/>
+  </fx:Declarations>
+
+  <s:HGroup width="100%">
+    <s:Button id="buttonAd"
+              label="Add"
+              click="onAddClick()"/>
+    <s:Spacer width="100%"/>
+    <s:Button id="buttonRemove"
+              label="Remove"
+              click="onRemoveClick()"
+              enabled="{records.length > 0 &amp;&amp; dataGrid.selectedCell != null}"
+              visible="{buttonRemove.enabled}"
+              includeInLayout="{buttonRemove.enabled}"/>
+  </s:HGroup>
+
+  <s:DataGrid id="dataGrid"
+              width="100%" height="100%"
+              keyDown="onKeyDown(event)"
+              dataProvider="{records}" columns="{columns}"
+              selectionMode="singleCell" editable="true"
+      >
+
+  </s:DataGrid>
+
+</s:VGroup>
